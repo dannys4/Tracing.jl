@@ -45,10 +45,11 @@ end
 struct PolyObject <: AbstractObject
     vertices::AbstractMatrix{_FLOAT_TYPE}
     faces::AbstractMatrix{_INT_TYPE}
+    texture::AbstractMatrix{_FLOAT_TYPE}
 end
 
 function PolyObject(file)
-    
+
 end
 
 type 
