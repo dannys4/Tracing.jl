@@ -43,20 +43,9 @@ struct CPUCamera <: AbstractCamera
 end
 
 struct PolyObject <: AbstractObject
-    vertices::AbstractMatrix{_FLOAT_TYPE}
-    faces::AbstractMatrix{_INT_TYPE}
-    texture::AbstractMatrix{_FLOAT_TYPE}
+    # vertices::AbstractMatrix{_FLOAT_TYPE}
+    faces::AbstractMatrix{_FLOAT_TYPE}  # 3 points * (3 dimension position + 3 dimension normal + 3 dimension texture) = N x 27
+    # texture::AbstractMatrix{_FLOAT_TYPE}
 end
 
-function PolyObject(file)
-
 end
-
-type 
-    Object* = object
-        vertices: seq[Point]
-        faces: seq[Face]
-
-end
-
-
