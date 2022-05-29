@@ -1,1 +1,1 @@
-# funciton that takes ray, computes intersection with object, returns color + 
+# funciton that takes ray, computes intersection point with object, returns intersection point + color + 
