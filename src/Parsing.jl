@@ -23,10 +23,6 @@ function parseFaceItem(f::AbstractString)::NTuple{3,_INT_TYPE}
     return vertex_index, texture_index, normal_index
 end
 
-function crossProd(a, b)
-    [a[2] * b[3] - a[3] * b[2], a[3] * b[1] - a[1] * b[3], a[1] * b[2] - a[2] * b[1]]
-end
-
 function parseOBJ(filename::String; big_matrix=false)#::PolyObject
     # Read the file
     vs = SVector{3, _FLOAT_TYPE}[]
@@ -70,7 +66,7 @@ function parseOBJ(filename::String; big_matrix=false)#::PolyObject
             if has_normal
                 faces[j,19:27] = reduce(vcat, vns[face[3:3:end]])
             else
-                faces[j,19:27] = repeat(crossProd(faces[j,4:6]-faces[j,1:3], faces[j,7:9]-faces[j,1:3]), 3, 1)
+                faces[j,19:27] = repeat(normalVec(faces[j,1:9]), 3, 1)
             end
         end
         return faces
