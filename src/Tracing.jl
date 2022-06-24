@@ -42,10 +42,27 @@ struct CPUCamera <: AbstractCamera
     rotation::SVector{3,_FLOAT_TYPE}
 end
 
-struct PolyObject <: AbstractObject
-    # vertices::AbstractMatrix{_FLOAT_TYPE}
-    faces::AbstractMatrix{_FLOAT_TYPE}  # 3 points * (3 dimension position + 3 dimension normal + 3 dimension texture) = N x 27
-    # texture::AbstractMatrix{_FLOAT_TYPE}
+struct PolyObjectMatrix <: AbstractObject
+    faces::Matrix{_FLOAT_TYPE}  # 3 points * (3 dimension position + 3 dimension normal + 3 dimension texture) = N x 27
 end
 
+struct PolyObjectIndex{T,U} <: AbstractObject where {T<:Union{Nothing, Matrix{_FLOAT_TYPE}}, U<:Union{Nothing, Matrix{_FLOAT_TYPE}}}
+    faces::Matrix{_INT_TYPE}  # 3 idxs * 3 points
+    vertices::Matrix{_FLOAT_TYPE}  # 3 points
+    textures::T  # 3 points
+    normals::U  # 3 points
+end
+
+function PolyObjectMatrix(fname::String)::PolyObjectMatrix
+    faces = parseOBJ(fname, big_matrix=true)
+    PolyObjectMatrix(faces)
+end
+
+function getCollision(ray) -> 
+
+function PolyObjectIndex(fname::String)::PolyObjectIndex
+    vs, vts, vns, fs = parseOBJ(fname, big_matrix=false)
+    T = typeof(vts)
+    U = typeof(vns)
+    PolyObjectIndex{T,U}(fs, vs, vts, vns)
 end
